@@ -1,0 +1,3 @@
+Create a Menu Service API - include a photo, price, description for each menu item
+Include a menu item category (e.g. appetizer, chicken, fish, beef, vegan, etc.)
+The API should support different restaurants to add, modify, remove any item

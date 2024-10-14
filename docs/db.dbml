@@ -1,0 +1,43 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table MenuItem {
+    id INTEGER [primary key]
+    name VARCHAR 
+    price FLOAT 
+    description VARCHAR 
+    category_id INTEGER 
+    photo VARCHAR 
+    }
+
+Table MenuItemCategory {
+    id INTEGER [primary key]
+    category_name VARCHAR 
+    }
+
+Table MenuLog {
+    id INTEGER [primary key]
+    menu_item_id INTEGER 
+    change_description VARCHAR 
+    change_date DATETIME 
+    }
+
+Table Restaurant {
+    id INTEGER [primary key]
+    name VARCHAR 
+    location VARCHAR 
+    }
+
+Table RestaurantMenu {
+    id INTEGER [primary key]
+    restaurant_id INTEGER 
+    menu_item_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: MenuItem.(category_id) < MenuItemCategory.(id)
+    Ref: MenuLog.(menu_item_id) < MenuItem.(id)
+    Ref: RestaurantMenu.(menu_item_id) < MenuItem.(id)
+    Ref: RestaurantMenu.(restaurant_id) < Restaurant.(id)

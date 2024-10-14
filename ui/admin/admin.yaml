@@ -1,0 +1,162 @@
+about:
+  date: October 14, 2024 17:29:55
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 4
+  number_tables: 5
+info_toggle_checked: true
+resources:
+  MenuItem:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: category_id
+      required: true
+    - name: price
+      required: true
+    - name: description
+    - name: photo
+    - name: id
+    description: Represents a menu item with details such as name, price, description,
+      and category.
+    info_list: Represents a menu item with details such as name, price, description,
+      and category.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - menu_item_id
+      name: MenuLogList
+      resource: MenuLog
+    - direction: tomany
+      fks:
+      - menu_item_id
+      name: RestaurantMenuList
+      resource: RestaurantMenu
+    - direction: toone
+      fks:
+      - category_id
+      name: category
+      resource: MenuItemCategory
+    type: MenuItem
+    user_key: name
+  MenuItemCategory:
+    attributes:
+    - label: ' category_name*'
+      name: category_name
+      required: true
+      search: true
+      sort: true
+    - name: id
+    description: Represents a category for menu items (e.g., appetizer, main course,
+      etc.).
+    info_list: Represents a category for menu items (e.g., appetizer, main course,
+      etc.).
+    tab_groups:
+    - direction: tomany
+      fks:
+      - category_id
+      name: MenuItemList
+      resource: MenuItem
+    type: MenuItemCategory
+    user_key: category_name
+  MenuLog:
+    attributes:
+    - label: ' change_description*'
+      name: change_description
+      required: true
+      search: true
+      sort: true
+    - name: menu_item_id
+      required: true
+    - name: change_date
+    - name: id
+    description: Logs changes to menu items, such as additions, updates, or deletions.
+    info_list: Logs changes to menu items, such as additions, updates, or deletions.
+    tab_groups:
+    - direction: toone
+      fks:
+      - menu_item_id
+      name: menu_item
+      resource: MenuItem
+    type: MenuLog
+    user_key: change_description
+  Restaurant:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: location
+    - name: id
+    description: Represents a restaurant with an ID, name, and location.
+    info_list: Represents a restaurant with an ID, name, and location.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - restaurant_id
+      name: RestaurantMenuList
+      resource: RestaurantMenu
+    type: Restaurant
+    user_key: name
+  RestaurantMenu:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: menu_item_id
+      required: true
+    - name: restaurant_id
+      required: true
+    description: Represents the restaurant's specific menu items.
+    info_list: Represents the restaurant's specific menu items.
+    tab_groups:
+    - direction: toone
+      fks:
+      - menu_item_id
+      name: menu_item
+      resource: MenuItem
+    - direction: toone
+      fks:
+      - restaurant_id
+      name: restaurant
+      resource: Restaurant
+    type: RestaurantMenu
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

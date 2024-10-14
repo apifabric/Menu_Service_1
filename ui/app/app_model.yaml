@@ -1,0 +1,227 @@
+about:
+  date: October 14, 2024 17:29:55
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  MenuItem:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: category_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: price
+      required: true
+      template: real
+      type: FLOAT
+    - name: description
+      template: text
+      type: VARCHAR
+    - name: photo
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents a menu item with details such as name, price, description,
+      and category.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents a menu item with details such as name, price, description,
+      and category.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - menu_item_id
+      name: MenuLogList
+      resource: MenuLog
+    - direction: tomany
+      fks:
+      - menu_item_id
+      name: RestaurantMenuList
+      resource: RestaurantMenu
+    - direction: toone
+      fks:
+      - category_id
+      name: category
+      resource: MenuItemCategory
+    type: MenuItem
+  MenuItemCategory:
+    columns:
+    - label: ' category_name*'
+      name: category_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents a category for menu items (e.g., appetizer, main course,
+      etc.).
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: category_name
+    home_template: home_template.html
+    info_list: Represents a category for menu items (e.g., appetizer, main course,
+      etc.).
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - category_id
+      name: MenuItemList
+      resource: MenuItem
+    type: MenuItemCategory
+  MenuLog:
+    columns:
+    - label: ' change_description*'
+      name: change_description
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: menu_item_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: change_date
+      template: date
+      type: DATETIME
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Logs changes to menu items, such as additions, updates, or deletions.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: change_description
+    home_template: home_template.html
+    info_list: Logs changes to menu items, such as additions, updates, or deletions.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - menu_item_id
+      name: menu_item
+      resource: MenuItem
+    type: MenuLog
+  Restaurant:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: location
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Represents a restaurant with an ID, name, and location.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Represents a restaurant with an ID, name, and location.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - restaurant_id
+      name: RestaurantMenuList
+      resource: RestaurantMenu
+    type: Restaurant
+  RestaurantMenu:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: menu_item_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: restaurant_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: Represents the restaurant's specific menu items.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Represents the restaurant's specific menu items.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - menu_item_id
+      name: menu_item
+      resource: MenuItem
+    - direction: toone
+      fks:
+      - restaurant_id
+      name: restaurant
+      resource: Restaurant
+    type: RestaurantMenu
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false
